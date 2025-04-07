@@ -1,20 +1,11 @@
-import { useState } from "react";
+import { RouterProvider } from "react-router-dom";
 
-import { AppLayout } from "./layouts/AppLayout";
-import LoginPage from "./pages/Login/LoginPage";
+import { router } from "./routes/router";
 
 import "./App.css";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  return isLoggedIn ? (
-    <AppLayout>
-      <div>{/* TODO */}</div>
-    </AppLayout>
-  ) : (
-    <LoginPage onLogin={() => setIsLoggedIn(true)} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { type LucideIcon } from "lucide-react";
 
 import {
@@ -28,12 +29,14 @@ export function SidebarNavSecondary({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.label}>
-              <SidebarMenuButton asChild size="sm">
-                <a href={item.url}>
-                  <item.icon />
-                  <span>{item.label}</span>
-                </a>
-              </SidebarMenuButton>
+              <NavLink to={item.url}>
+                {({ isActive }) => (
+                  <SidebarMenuButton isActive={isActive}>
+                    {item.icon && <item.icon />}
+                    {item.label}
+                  </SidebarMenuButton>
+                )}
+              </NavLink>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>

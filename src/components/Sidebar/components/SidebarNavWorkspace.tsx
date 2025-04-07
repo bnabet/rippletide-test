@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { ChevronRight, type LucideIcon } from "lucide-react";
 
 import {
@@ -55,11 +56,13 @@ export function SidebarNavWorkspace({ items }: SidebarNavWorkspaceProps) {
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.label}>
-                      <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
-                          <span>{subItem.label}</span>
-                        </a>
-                      </SidebarMenuSubButton>
+                      <NavLink to={subItem.url}>
+                        {({ isActive }) => (
+                          <SidebarMenuSubButton asChild isActive={isActive}>
+                            <span>{subItem.label}</span>
+                          </SidebarMenuSubButton>
+                        )}
+                      </NavLink>
                     </SidebarMenuSubItem>
                   ))}
                 </SidebarMenuSub>
