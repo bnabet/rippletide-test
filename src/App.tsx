@@ -1,12 +1,19 @@
+import { useState } from "react";
+
 import { AppLayout } from "./layouts/AppLayout";
+import LoginPage from "./pages/Login/LoginPage";
 
 import "./App.css";
 
 function App() {
-  return (
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  return isLoggedIn ? (
     <AppLayout>
       <div>{/* TODO */}</div>
     </AppLayout>
+  ) : (
+    <LoginPage onLogin={() => setIsLoggedIn(true)} />
   );
 }
 
