@@ -21,10 +21,19 @@ import { TodaysFocusChartSales } from "./components/TodaysFocusChartSales";
 import { remindersData, teamActivitiesData } from "./data/data";
 import { useGetLeads } from "@/hooks/useGetLeads";
 import { useGetTasks } from "@/hooks/useGetTasks";
+import { useMultiQueryStatus } from "@/hooks/useMultiQueryStatus";
 
 export function TodaysFocus() {
-  const { data: leads = [], isLoading, error, refetch } = useGetLeads();
-  const { data: tasks = [] } = useGetTasks();
+  const leadsQuery = useGetLeads();
+  const tasksQuery = useGetTasks();
+
+  const { isLoading, hasError, errors, refetchAll } = useMultiQueryStatus([
+    leadsQuery,
+    tasksQuery,
+  ]);
+
+  const leads = leadsQuery.data ?? [];
+  const tasks = tasksQuery.data ?? [];
 
   if (isLoading) {
     return (
@@ -35,7 +44,9 @@ export function TodaysFocus() {
     );
   }
 
-  if (error) return <PageError error={error} resetError={refetch} />;
+  if (hasError) {
+    return <PageError errors={errors} resetError={refetchAll} />;
+  }
 
   return (
     <AppPage title="Today's Focus" description="Your tasks for today">

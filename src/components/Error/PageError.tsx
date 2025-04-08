@@ -2,11 +2,11 @@ import { AlertCircle, RefreshCw, ArrowLeft, MessageSquare } from "lucide-react";
 import { Button } from "../ui/button";
 
 type PageErrorProps = {
-  error?: Error;
+  errors?: Error[];
   resetError?: () => void;
 };
 
-export function PageError({ error, resetError }: PageErrorProps) {
+export function PageError({ errors, resetError }: PageErrorProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
       <div className="mx-auto w-full max-w-2xl p-8">
@@ -27,11 +27,13 @@ export function PageError({ error, resetError }: PageErrorProps) {
               </div>
             </div>
 
-            {error && (
+            {errors && errors?.length > 0 && (
               <div className="mt-6 rounded-md border border-gray-100 bg-gray-50 p-4">
-                <p className="font-mono text-sm text-gray-600">
-                  {error.message}
-                </p>
+                {errors.map((err, i) => (
+                  <p key={i} className="font-mono text-sm text-gray-600">
+                    {err.message}
+                  </p>
+                ))}
               </div>
             )}
 
