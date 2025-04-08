@@ -3,6 +3,7 @@ import { SidebarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useSidebar } from "@/components/ui/sidebar";
+import { HeaderBreadcrumb } from "./components/HeaderBreadcrumb";
 
 export function Header() {
   const { toggleSidebar } = useSidebar();
@@ -19,6 +20,7 @@ export function Header() {
           <SidebarIcon />
         </Button>
         <Separator orientation="vertical" className="mr-2 h-4" />
+        <HeaderBreadcrumb />
       </div>
     </header>
   );

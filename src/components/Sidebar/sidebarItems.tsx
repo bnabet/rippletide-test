@@ -52,12 +52,12 @@ export const sidebarItems = {
   team: [
     {
       label: "Members",
-      url: "/team/members",
+      url: "/members",
       icon: Users,
     },
     {
       label: "Roles & Access",
-      url: "/team/roles",
+      url: "/roles",
       icon: UserCog,
     },
   ],

@@ -42,13 +42,8 @@ export const router = createBrowserRouter([
           { path: "archived", element: <Archived /> },
         ],
       },
-      {
-        path: "team",
-        children: [
-          { path: "members", element: <Members /> },
-          { path: "roles", element: <RolesAndAccess /> },
-        ],
-      },
+      { path: "members", element: <Members /> },
+      { path: "roles", element: <RolesAndAccess /> },
       { path: "support", element: <Support /> },
       { path: "feedback", element: <Feedback /> },
     ],
