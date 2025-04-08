@@ -16,7 +16,7 @@ import { Feedback } from "@/pages/Feedback/Feedback";
 export const router = createBrowserRouter([
   {
     path: "/login",
-    element: <LoginPage onLogin={() => {}} />,
+    element: <LoginPage />,
   },
   {
     path: "/",

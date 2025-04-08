@@ -7,6 +7,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 
 import { SidebarNavWorkspace } from "./components/SidebarNavWorkspace";
@@ -16,6 +17,7 @@ import { SidebarNavSecondary } from "./components/SidebarNavSecondary";
 import { sidebarItems } from "./sidebarItems";
 
 import rippletideLogo from "../../assets/logo.svg";
+import { SidebarNavUser } from "./components/SidebarNavUser";
 
 export function Sidebar({
   ...props
@@ -44,6 +46,9 @@ export function Sidebar({
           className="mt-auto"
         />
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarNavUser />
+      </SidebarFooter>
     </SidebarRoot>
   );
 }
