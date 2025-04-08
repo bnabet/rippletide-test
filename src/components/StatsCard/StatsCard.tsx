@@ -8,8 +8,9 @@ type StatsCardProps = {
   value: number;
   icon: React.ReactNode;
   statLabel: string;
-  statValue: number;
+  statValue?: number;
   isCurrency?: boolean;
+  isPercent?: boolean;
 };
 
 export function StatsCard({
@@ -19,6 +20,7 @@ export function StatsCard({
   statLabel,
   statValue,
   isCurrency = false,
+  isPercent = false,
 }: StatsCardProps) {
   const handleStatValueColor = (value: number) => {
     if (value < 0) {
@@ -43,7 +45,11 @@ export function StatsCard({
               {title}
             </p>
             <p className="text-foreground mt-1 text-3xl font-extrabold">
-              {isCurrency ? valueFormatter.format(value) : value}
+              {isCurrency
+                ? valueFormatter.format(value)
+                : isPercent
+                  ? `${value}%`
+                  : value}
             </p>
           </div>
           <div className="bg-muted rounded-md p-2">{icon}</div>
@@ -53,14 +59,16 @@ export function StatsCard({
           <p className="text-muted-foreground text-xs font-medium">
             {statLabel}
           </p>
-          <p
-            className={cn(
-              "text-xs font-medium",
-              handleStatValueColor(statValue),
-            )}
-          >
-            {formatStatValue(statValue)}
-          </p>
+          {statValue && (
+            <p
+              className={cn(
+                "text-xs font-medium",
+                handleStatValueColor(statValue),
+              )}
+            >
+              {formatStatValue(statValue)}
+            </p>
+          )}
         </div>
       </CardContent>
     </Card>
