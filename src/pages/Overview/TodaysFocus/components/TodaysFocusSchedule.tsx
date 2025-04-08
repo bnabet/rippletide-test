@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+
+import { TodaysFocusScheduleDialog } from "./TodaysFocusScheduleDialog";
+
 import { meetingsData } from "../data/data";
 import { getDuration } from "@/lib/utils";
 
@@ -8,10 +10,7 @@ export function TodaysFocusSchedule() {
     <div>
       <div className="mb-2 flex items-center justify-between">
         <h3 className="text-foreground text-xl font-bold">Today's Schedule</h3>
-        <Button variant="link" className="text-muted-foreground">
-          <Plus className="text-muted-foreground size-4" />
-          Add Meeting
-        </Button>
+        <TodaysFocusScheduleDialog />
       </div>
 
       <ul className="divide-muted divide-y">
