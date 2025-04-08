@@ -1,7 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-
-import { valueFormatter } from "../../utils/valueFormatter";
+import { cn, valueFormatter } from "@/lib/utils";
 
 type StatsCardProps = {
   title: string;

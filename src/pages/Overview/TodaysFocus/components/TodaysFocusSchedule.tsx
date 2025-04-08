@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { meetingsData } from "../data/data";
-import { getDuration } from "../../../../utils/getDuration";
+import { getDuration } from "@/lib/utils";
 
 export function TodaysFocusSchedule() {
   return (
