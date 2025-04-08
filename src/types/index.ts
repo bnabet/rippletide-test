@@ -13,3 +13,12 @@ export type Lead = {
   updated_at: string;
   next_contact_date: string;
 };
+
+export type Task = {
+  id: string;
+  title: string;
+  type: "call" | "email" | "todo";
+  scheduled_at: string;
+  priority: "low" | "medium" | "high";
+  completed: boolean;
+};

@@ -20,9 +20,11 @@ import { TodaysFocusChartSales } from "./components/TodaysFocusChartSales";
 
 import { remindersData, teamActivitiesData } from "./data/data";
 import { useGetLeads } from "@/hooks/useGetLeads";
+import { useGetTasks } from "@/hooks/useGetTasks";
 
 export function TodaysFocus() {
   const { data: leads = [], isLoading, error, refetch } = useGetLeads();
+  const { data: tasks = [] } = useGetTasks();
 
   if (isLoading) {
     return (
@@ -40,7 +42,7 @@ export function TodaysFocus() {
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
         {/* Left column */}
         <div className="space-y-10 lg:col-span-2">
-          <TodaysFocusStats leads={leads} />
+          <TodaysFocusStats leads={leads} tasks={tasks} />
           <TodaysFocusActions />
           <TodaysFocusSchedule />
 

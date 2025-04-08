@@ -1,17 +1,20 @@
-import { PhoneIcon } from "lucide-react";
+import { ListChecks, PhoneIcon } from "lucide-react";
 
 import { statsData } from "../data/data";
 import { StatsCard } from "@/components/StatsCard/StatsCard";
-import { Lead } from "@/types";
+import { Lead, Task } from "@/types";
 
 import { useLeadsStats } from "../hooks/useLeadsStats";
+import { useTasksStats } from "../hooks/useTasksStats";
 
 type TodaysFocusStatsProps = {
   leads: Lead[];
+  tasks: Task[];
 };
 
-export function TodaysFocusStats({ leads }: TodaysFocusStatsProps) {
+export function TodaysFocusStats({ leads, tasks }: TodaysFocusStatsProps) {
   const { leadsToContact } = useLeadsStats(leads);
+  const { highPriorityCount, delta } = useTasksStats(tasks);
 
   const tempStatsData = [
     {
@@ -20,6 +23,14 @@ export function TodaysFocusStats({ leads }: TodaysFocusStatsProps) {
       statLabel: "Due today",
       statValue: Number(Math.abs(leadsToContact.delta).toFixed(0)),
       icon: <PhoneIcon className="text-foreground size-4" />,
+      isCurrency: false,
+    },
+    {
+      title: "Tasks due",
+      value: highPriorityCount,
+      statLabel: "High priority",
+      statValue: Number(Math.abs(delta).toFixed(0)),
+      icon: <ListChecks className="text-foreground size-4" />,
       isCurrency: false,
     },
   ];
