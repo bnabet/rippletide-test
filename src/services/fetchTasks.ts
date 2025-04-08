@@ -4,6 +4,8 @@ import { Task } from "@/types";
 export const fetchTasks = async (filters: {
   completed?: boolean;
   priority?: string;
+  scheduled_from?: string;
+  scheduled_to?: string;
 }): Promise<Task[]> => {
   let query = supabase.from("tasks").select("*");
 
@@ -13,6 +15,14 @@ export const fetchTasks = async (filters: {
 
   if (filters.priority) {
     query = query.eq("priority", filters.priority);
+  }
+
+  if (filters.scheduled_from) {
+    query = query.gte("scheduled_at", filters.scheduled_from);
+  }
+
+  if (filters.scheduled_to) {
+    query = query.lte("scheduled_at", filters.scheduled_to);
   }
 
   const { data, error } = await query;

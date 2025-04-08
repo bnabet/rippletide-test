@@ -1,12 +1,11 @@
 import { useMemo } from "react";
 import { Task } from "@/types";
-
-const formatDate = (date: Date) => date.toISOString().slice(0, 10);
+import { formatDateISO } from "@/lib/utils";
 
 export const useTasksStats = (tasks: Task[] = []) => {
   const { highPriorityCount, delta } = useMemo(() => {
-    const today = formatDate(new Date());
-    const yesterday = formatDate(new Date(Date.now() - 86400000));
+    const today = formatDateISO();
+    const yesterday = formatDateISO(new Date(Date.now() - 86400000));
 
     const getHighCount = (date: string) =>
       tasks.filter(

@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { Lead } from "@/types";
+import { formatDateISO } from "@/lib/utils";
 
 export const useLeadsStats = (leads: Lead[] = []) => {
-  const today = new Date().toISOString().slice(0, 10);
-  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const today = formatDateISO();
+  const yesterday = formatDateISO(new Date(Date.now() - 86400000));
 
   const stats = useMemo(() => {
     const leadsToday = leads.filter((lead) => lead.next_contact_date === today);

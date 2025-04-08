@@ -1,36 +1,13 @@
 import {
   Binoculars,
   CalendarCheck2,
-  CheckSquare,
   Clock,
   DollarSign,
   Headset,
-  Mail,
   Phone,
   User,
   Users,
 } from "lucide-react";
-
-export const actionsData = [
-  {
-    icon: <Phone className="text-muted-foreground size-4" />,
-    label: "Follow up with TechCorp proposal",
-    time: "2:00 PM",
-    priority: "high",
-  },
-  {
-    icon: <Mail className="text-muted-foreground size-4" />,
-    label: "Send pricing update to Global Solutions",
-    time: "4:00 PM",
-    priority: "medium",
-  },
-  {
-    icon: <CheckSquare className="text-muted-foreground size-4" />,
-    label: "Update Q4 sales forecast",
-    time: "6:00 PM",
-    priority: "low",
-  },
-];
 
 export const meetingsData = [
   {

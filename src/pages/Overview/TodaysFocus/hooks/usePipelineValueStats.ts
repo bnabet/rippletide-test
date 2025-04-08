@@ -1,11 +1,11 @@
 import { useMemo } from "react";
-import { formatDate } from "@/lib/utils";
+import { formatDateISO } from "@/lib/utils";
 import { Opportunity } from "@/types";
 
 export const usePipelineValueStats = (opportunities: Opportunity[] = []) => {
   const { totalValue, delta } = useMemo(() => {
-    const today = formatDate(new Date());
-    const yesterday = formatDate(new Date(Date.now() - 86400000));
+    const today = formatDateISO();
+    const yesterday = formatDateISO(new Date(Date.now() - 86400000));
 
     const sum = (list: typeof opportunities) =>
       list.reduce((acc, opp) => acc + opp.value, 0);

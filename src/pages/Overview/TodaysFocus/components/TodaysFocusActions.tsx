@@ -1,47 +1,74 @@
-import { Button } from "@/components/ui/button";
-import { ChevronRight, Clock } from "lucide-react";
-import { actionsData } from "../data/data";
+import { format } from "date-fns";
+import { CheckSquare, Clock, Mail, Phone } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+
 import { Badge } from "@/components/ui/badge";
 
+import { useGetTodaysTasks } from "@/hooks/useGetTodaysTasks";
+import { TodaysFocusActionsSheet } from "./TodaysFocusActionsSheet";
+
+export function ActionBadge({ priority }: { priority: string }) {
+  return (
+    <Badge
+      variant="outline"
+      className={cn({
+        "bg-red-50 text-red-700": priority === "high",
+        "bg-yellow-50 text-yellow-700": priority === "medium",
+        "bg-green-50 text-green-700": priority === "low",
+      })}
+    >
+      {priority}
+    </Badge>
+  );
+}
+
 export function TodaysFocusActions() {
+  const { data: tasks = [] } = useGetTodaysTasks();
+
+  const getIcon = (type: string) => {
+    switch (type) {
+      case "call":
+        return <Phone className="size-4" />;
+      case "email":
+        return <Mail className="size-4" />;
+      default:
+        return <CheckSquare className="size-4" />;
+    }
+  };
+
+  const sortedTasks = tasks.sort(
+    (a, b) =>
+      new Date(a.scheduled_at).getTime() - new Date(b.scheduled_at).getTime(),
+  );
+
   return (
     <div>
       <div className="mb-2 flex items-center justify-between">
         <h3 className="text-foreground text-xl font-bold">Priority Actions</h3>
-        <Button variant="link" className="text-muted-foreground">
-          View Timeline
-          <ChevronRight className="text-muted-foreground size-4" />
-        </Button>
+        <TodaysFocusActionsSheet tasks={tasks} getIcon={getIcon} />
       </div>
 
       <ul className="divide-muted divide-y">
-        {actionsData.map((action, idx) => (
-          <li key={idx} className="flex items-center justify-between py-4">
+        {sortedTasks.slice(0, 3).map((task) => (
+          <li
+            key={task.id}
+            className="flex items-center justify-between gap-2 py-4"
+          >
             <div className="flex items-center gap-4">
-              {action.icon}
+              {getIcon(task.type)}
               <div className="flex flex-col gap-1">
                 <p className="text-foreground text-sm font-semibold">
-                  {action.label}
+                  {task.title}
                 </p>
                 <div className="text-muted-foreground flex items-center gap-1 text-xs">
                   <Clock className="size-3" />
-                  {action.time}
+                  {format(new Date(task.scheduled_at), "p")}
                 </div>
               </div>
             </div>
 
-            <Badge
-              variant="outline"
-              className={
-                action.priority === "high"
-                  ? "bg-red-100 text-red-700"
-                  : action.priority === "medium"
-                    ? "bg-yellow-100 text-yellow-700"
-                    : "bg-green-100 text-green-700"
-              }
-            >
-              {action.priority}
-            </Badge>
+            <ActionBadge priority={task.priority} />
           </li>
         ))}
       </ul>
