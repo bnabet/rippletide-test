@@ -21,17 +21,15 @@ export function StatsCard({
   isPercent = false,
 }: StatsCardProps) {
   const handleStatValueColor = (value: number) => {
-    if (value < 0) {
-      return "text-red-600";
-    }
-    return "text-green-600";
+    if (value > 0) return "text-green-500";
+    if (value < 0) return "text-red-500";
+    return "text-muted-foreground";
   };
 
   const formatStatValue = (value: number) => {
-    if (value < 0) {
-      return `↓ ${Math.abs(value)}%`;
-    }
-    return `↑ ${value}%`;
+    if (value > 0) return `↑ ${value}`;
+    if (value < 0) return `↓ ${Math.abs(value)}`;
+    return "0";
   };
 
   return (
@@ -57,14 +55,14 @@ export function StatsCard({
           <p className="text-muted-foreground text-xs font-medium">
             {statLabel}
           </p>
-          {statValue && (
+          {statValue !== undefined && statValue !== null && (
             <p
               className={cn(
                 "text-xs font-medium",
                 handleStatValueColor(statValue),
               )}
             >
-              {formatStatValue(statValue)}
+              {formatStatValue(statValue)}%
             </p>
           )}
         </div>
