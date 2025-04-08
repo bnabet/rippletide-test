@@ -54,9 +54,9 @@ export function TodaysFocus() {
 
   return (
     <AppPage title="Today's Focus" description="Your tasks for today">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
         {/* Left column */}
-        <div className="space-y-10 lg:col-span-2">
+        <div className="space-y-10 lg:col-span-3">
           <TodaysFocusStats
             leads={leads}
             tasks={tasks}

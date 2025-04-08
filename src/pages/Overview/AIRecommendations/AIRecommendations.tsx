@@ -38,8 +38,8 @@ export function AIRecommendations() {
         <div className="space-y-10 lg:col-span-2">
           <AIRecommendationsStats />
 
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-            <div className="flex-1 space-y-4 lg:col-span-2">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
+            <div className="flex-1 space-y-4 lg:col-span-3">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">
                   High-Value Opportunities
