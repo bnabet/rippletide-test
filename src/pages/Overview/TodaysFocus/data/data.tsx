@@ -5,39 +5,11 @@ import {
   Clock,
   DollarSign,
   Headset,
-  ListChecks,
   Mail,
   Phone,
-  PhoneIcon,
-  TrendingUp,
   User,
   Users,
 } from "lucide-react";
-
-export const statsData = [
-  {
-    title: "Leads to contact",
-    value: 18,
-    icon: <PhoneIcon className="text-foreground size-4" />,
-    statLabel: "Due today",
-    statValue: 12,
-  },
-  {
-    title: "Tasks due",
-    value: 5,
-    icon: <ListChecks className="text-foreground size-4" />,
-    statLabel: "High priority",
-    statValue: -3,
-  },
-  {
-    title: "Pipeline value",
-    value: 1200000,
-    icon: <TrendingUp className="text-foreground size-4" />,
-    statLabel: "Active opportunities",
-    statValue: 8,
-    isCurrency: true,
-  },
-];
 
 export const actionsData = [
   {

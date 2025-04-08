@@ -22,18 +22,22 @@ import { remindersData, teamActivitiesData } from "./data/data";
 import { useGetLeads } from "@/hooks/useGetLeads";
 import { useGetTasks } from "@/hooks/useGetTasks";
 import { useMultiQueryStatus } from "@/hooks/useMultiQueryStatus";
+import { useGetPipelineValue } from "@/hooks/useGetPipelineValue";
 
 export function TodaysFocus() {
   const leadsQuery = useGetLeads();
   const tasksQuery = useGetTasks();
+  const pipelineQuery = useGetPipelineValue();
 
   const { isLoading, hasError, errors, refetchAll } = useMultiQueryStatus([
     leadsQuery,
     tasksQuery,
+    pipelineQuery,
   ]);
 
   const leads = leadsQuery.data ?? [];
   const tasks = tasksQuery.data ?? [];
+  const opportunities = pipelineQuery.data ?? [];
 
   if (isLoading) {
     return (
@@ -53,7 +57,11 @@ export function TodaysFocus() {
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
         {/* Left column */}
         <div className="space-y-10 lg:col-span-2">
-          <TodaysFocusStats leads={leads} tasks={tasks} />
+          <TodaysFocusStats
+            leads={leads}
+            tasks={tasks}
+            opportunities={opportunities}
+          />
           <TodaysFocusActions />
           <TodaysFocusSchedule />
 

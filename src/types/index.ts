@@ -22,3 +22,11 @@ export type Task = {
   priority: "low" | "medium" | "high";
   completed: boolean;
 };
+
+export type Opportunity = {
+  id: string;
+  name: string;
+  value: number;
+  status: "open" | "won" | "lost";
+  created_at: string;
+};
