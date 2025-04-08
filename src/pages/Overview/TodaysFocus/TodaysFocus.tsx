@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+import { PageLoader } from "@/components/Loader/PageLoader";
+import { PageError } from "@/components/Error/PageError";
 import { TodaysFocusStats } from "./components/TodaysFocusStats";
 import { TodaysFocusActions } from "./components/TodaysFocusActions";
 import { TodaysFocusSchedule } from "./components/TodaysFocusSchedule";
@@ -17,14 +19,28 @@ import { TodaysFocusChartLeads } from "./components/TodaysFocusChartLeads";
 import { TodaysFocusChartSales } from "./components/TodaysFocusChartSales";
 
 import { remindersData, teamActivitiesData } from "./data/data";
+import { useGetLeads } from "@/hooks/useGetLeads";
 
 export function TodaysFocus() {
+  const { data: leads = [], isLoading, error, refetch } = useGetLeads();
+
+  if (isLoading) {
+    return (
+      <PageLoader
+        title="Loading Today's Focus"
+        description="Please wait while we load your tasks for today"
+      />
+    );
+  }
+
+  if (error) return <PageError error={error} resetError={refetch} />;
+
   return (
     <AppPage title="Today's Focus" description="Your tasks for today">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
         {/* Left column */}
         <div className="space-y-10 lg:col-span-2">
-          <TodaysFocusStats />
+          <TodaysFocusStats leads={leads} />
           <TodaysFocusActions />
           <TodaysFocusSchedule />
 
