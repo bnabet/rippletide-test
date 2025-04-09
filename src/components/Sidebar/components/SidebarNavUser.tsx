@@ -21,9 +21,17 @@ import {
 
 export function SidebarNavUser() {
   const { isMobile } = useSidebar();
-  const [user, setUser] = useState<{ name: string; email: string }>({
+  const [userLoaded, setUserLoaded] = useState(false);
+  const [user, setUser] = useState<{
+    name: string;
+    email: string;
+    user_metadata: { avatar_url: string };
+  }>({
     name: "",
     email: "",
+    user_metadata: {
+      avatar_url: "",
+    },
   });
 
   const handleLogout = async () => {
@@ -41,7 +49,12 @@ export function SidebarNavUser() {
         setUser({
           name: user_metadata?.full_name || "User",
           email: email || "",
+          user_metadata: {
+            avatar_url: user_metadata?.avatar_url || "",
+          },
         });
+
+        setUserLoaded(true);
       }
     };
 
@@ -57,15 +70,20 @@ export function SidebarNavUser() {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage
-                  src="https://avatars.githubusercontent.com/u/14838747?v=4"
-                  alt={user.name}
-                />
-                <AvatarFallback className="rounded-lg">
-                  {user.name.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
+              {userLoaded && (
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage
+                    src={
+                      user.user_metadata.avatar_url ||
+                      `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name || "User")}`
+                    }
+                    alt={user.name}
+                  />
+                  <AvatarFallback className="rounded-lg">
+                    {user.name.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              )}
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{user.name}</span>
                 <span className="truncate text-xs">{user.email}</span>
