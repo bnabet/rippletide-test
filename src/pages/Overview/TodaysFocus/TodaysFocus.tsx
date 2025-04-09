@@ -1,6 +1,5 @@
 import { ArrowRight, CircleAlert, SparklesIcon } from "lucide-react";
 
-import { AppPage } from "@/layouts/AppPage";
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
+import { AppPage } from "@/layouts/AppPage";
 import { PageLoader } from "@/components/Loader/PageLoader";
 import { PageError } from "@/components/Error/PageError";
 import { TodaysFocusStats } from "./components/TodaysFocusStats";
@@ -18,11 +18,12 @@ import { TodaysFocusSchedule } from "./components/TodaysFocusSchedule";
 import { TodaysFocusChartLeads } from "./components/TodaysFocusChartLeads";
 import { TodaysFocusChartSales } from "./components/TodaysFocusChartSales";
 
-import { remindersData, teamActivitiesData } from "./data/data";
 import { useGetLeads } from "@/hooks/useGetLeads";
 import { useGetTasks } from "@/hooks/useGetTasks";
 import { useMultiQueryStatus } from "@/hooks/useMultiQueryStatus";
 import { useGetPipelineValue } from "@/hooks/useGetPipelineValue";
+
+import { remindersData, teamActivitiesData } from "./data/data";
 
 export function TodaysFocus() {
   const leadsQuery = useGetLeads();
@@ -54,9 +55,9 @@ export function TodaysFocus() {
 
   return (
     <AppPage title="Today's Focus" description="Your tasks for today">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-10 xl:grid-cols-4">
         {/* Left column */}
-        <div className="space-y-10 lg:col-span-3">
+        <div className="space-y-10 xl:col-span-3">
           <TodaysFocusStats
             leads={leads}
             tasks={tasks}
@@ -65,14 +66,14 @@ export function TodaysFocus() {
           <TodaysFocusActions />
           <TodaysFocusSchedule />
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <section className="grid grid-cols-1 gap-10 lg:grid-cols-2">
             <TodaysFocusChartLeads />
             <TodaysFocusChartSales />
-          </div>
+          </section>
         </div>
 
         {/* Right column */}
-        <div className="flex flex-col gap-6 lg:col-span-1">
+        <div className="flex flex-col gap-6 xl:col-span-1">
           {/* AI Tip of the Day */}
           <Card severity="warning">
             <CardHeader>

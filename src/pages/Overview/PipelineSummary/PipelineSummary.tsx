@@ -9,6 +9,13 @@ import {
 } from "@/components/ui/select";
 
 import { AppPage } from "@/layouts/AppPage";
+import {
+  Section,
+  SectionHeader,
+  SectionTitle,
+  SectionActions,
+  SectionContent,
+} from "@/components/Section/Section";
 import { PipelineSummaryStats } from "./components/PipelineSummaryStats";
 import { PipelineSummaryChart } from "./components/PipelineSummaryChart";
 import { PipelineSummaryOpportunities } from "./components/PipelineSummaryOpportunities";
@@ -34,40 +41,35 @@ export function PipelineSummary() {
       title="Pipeline Summary"
       description="Your pipeline summary for today"
     >
-      <div className="grid grid-cols-1 gap-10">
-        <div className="space-y-10 lg:col-span-2">
-          <PipelineSummaryStats />
+      <div className="grid grid-cols-1 space-y-10">
+        <PipelineSummaryStats />
 
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h3 className="text-foreground text-xl font-bold">
-                Pipeline Progress
-              </h3>
-              <p className="text-muted-foreground text-sm">
-                Lorem ipsum dolor sit amet
-              </p>
-            </div>
+        <Section>
+          <SectionHeader className="mb-4">
+            <SectionTitle>Pipeline Progress</SectionTitle>
 
-            <Select
-              value={selectedRange}
-              onValueChange={(value: string) =>
-                setSelectedRange(value as RangeOption)
-              }
-            >
-              <SelectTrigger className="w-[160px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {RANGE_OPTIONS.map((opt) => (
-                  <SelectItem key={opt} value={opt}>
-                    {opt.replace("last", "Last ")}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+            <SectionActions>
+              <Select
+                value={selectedRange}
+                onValueChange={(value: string) =>
+                  setSelectedRange(value as RangeOption)
+                }
+              >
+                <SelectTrigger className="w-[160px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {RANGE_OPTIONS.map((opt) => (
+                    <SelectItem key={opt} value={opt}>
+                      {opt.replace("last", "Last ")}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </SectionActions>
+          </SectionHeader>
 
-          <div className="bg-card border-input flex flex-col gap-10 rounded-md border p-6 shadow-xs lg:flex-row">
+          <SectionContent className="bg-card border-input flex flex-col gap-10 rounded-md border p-6 shadow-xs lg:flex-row">
             <PipelineSummaryChart
               chartConfig={chartConfig}
               aggregatedChartData={aggregatedChartData}
@@ -77,8 +79,8 @@ export function PipelineSummary() {
             <PipelineSummaryOpportunities
               filteredOpportunities={filteredOpportunities}
             />
-          </div>
-        </div>
+          </SectionContent>
+        </Section>
       </div>
     </AppPage>
   );

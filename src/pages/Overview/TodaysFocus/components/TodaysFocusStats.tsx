@@ -51,7 +51,7 @@ export function TodaysFocusStats({
   ];
 
   return (
-    <div className="mb-10 grid grid-cols-1 content-start gap-6 md:grid-cols-3">
+    <section className="grid grid-cols-1 content-start gap-6 md:grid-cols-3">
       {tempStatsData.map((card, index) => (
         <StatsCard
           key={index}
@@ -63,6 +63,6 @@ export function TodaysFocusStats({
           isCurrency={card.isCurrency}
         />
       ))}
-    </div>
+    </section>
   );
 }

@@ -5,8 +5,16 @@ import { cn } from "@/lib/utils";
 
 import { Badge } from "@/components/ui/badge";
 
-import { useGetTodaysTasks } from "@/hooks/useGetTodaysTasks";
+import {
+  Section,
+  SectionHeader,
+  SectionTitle,
+  SectionActions,
+  SectionContent,
+} from "@/components/Section/Section";
 import { TodaysFocusActionsSheet } from "./TodaysFocusActionsSheet";
+
+import { useGetTodaysTasks } from "@/hooks/useGetTodaysTasks";
 
 export function ActionBadge({ priority }: { priority: string }) {
   return (
@@ -43,35 +51,40 @@ export function TodaysFocusActions() {
   );
 
   return (
-    <div>
-      <div className="mb-2 flex items-center justify-between">
-        <h3 className="text-foreground text-xl font-bold">Priority Actions</h3>
-        <TodaysFocusActionsSheet tasks={tasks} getIcon={getIcon} />
-      </div>
+    <Section>
+      <SectionHeader>
+        <SectionTitle>Priority Actions</SectionTitle>
+        <SectionActions>
+          <TodaysFocusActionsSheet tasks={tasks} getIcon={getIcon} />
+        </SectionActions>
+      </SectionHeader>
 
-      <ul className="divide-muted divide-y">
-        {sortedTasks.slice(0, 3).map((task) => (
-          <li
-            key={task.id}
-            className="flex items-center justify-between gap-2 py-4"
-          >
-            <div className="flex items-center gap-4">
-              {getIcon(task.type)}
-              <div className="flex flex-col gap-1">
-                <p className="text-foreground text-sm font-semibold">
-                  {task.title}
-                </p>
-                <div className="text-muted-foreground flex items-center gap-1 text-xs">
-                  <Clock className="size-3" />
-                  {format(new Date(task.scheduled_at), "p")}
+      <SectionContent>
+        <ul className="divide-muted divide-y">
+          {sortedTasks.slice(0, 3).map((task) => (
+            <li
+              key={task.id}
+              className="flex items-center justify-between gap-2 py-4"
+            >
+              <div className="flex items-center gap-4">
+                {getIcon(task.type)}
+
+                <div className="flex flex-col gap-1">
+                  <p className="text-foreground text-sm font-semibold">
+                    {task.title}
+                  </p>
+                  <div className="text-muted-foreground flex items-center gap-1 text-xs">
+                    <Clock className="size-3" />
+                    {format(new Date(task.scheduled_at), "p")}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <ActionBadge priority={task.priority} />
-          </li>
-        ))}
-      </ul>
-    </div>
+              <ActionBadge priority={task.priority} />
+            </li>
+          ))}
+        </ul>
+      </SectionContent>
+    </Section>
   );
 }
