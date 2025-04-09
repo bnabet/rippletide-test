@@ -16,35 +16,46 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { NavLink } from "react-router-dom";
+import { toast } from "sonner";
 
-type LoginFormProps = {
+type SignupFormProps = {
   className?: string;
-  onLogin: () => void;
+  onSignup: (fullName: string) => void;
 };
 
-const loginSchema = z.object({
+const signupSchema = z.object({
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
+  full_name: z.string().min(2, "Full name is required"),
 });
 
-type LoginData = z.infer<typeof loginSchema>;
+type SignupData = z.infer<typeof signupSchema>;
 
-export function LoginForm({ className, onLogin }: LoginFormProps) {
-  const form = useForm<LoginData>({
-    resolver: zodResolver(loginSchema),
+export function SignupForm({ className, onSignup }: SignupFormProps) {
+  const form = useForm<SignupData>({
+    resolver: zodResolver(signupSchema),
     defaultValues: {
       email: "",
       password: "",
+      full_name: "",
     },
   });
 
-  const onSubmit = async (data: LoginData) => {
-    const { error } = await supabase.auth.signInWithPassword(data);
+  const onSubmit = async (data: SignupData) => {
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: {
+        data: {
+          full_name: data.full_name,
+        },
+      },
+    });
 
     if (error) {
       form.setError("email", { message: error.message });
     } else {
-      onLogin();
+      onSignup(data.full_name);
     }
   };
 
@@ -57,7 +68,9 @@ export function LoginForm({ className, onLogin }: LoginFormProps) {
     });
 
     if (error) {
-      console.error("GitHub login error:", error.message);
+      toast.error("GitHub login error: ", {
+        description: error.message,
+      });
     }
   };
 
@@ -68,13 +81,26 @@ export function LoginForm({ className, onLogin }: LoginFormProps) {
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <div className="flex flex-col gap-2">
-          <h1 className="text-5xl font-extrabold">Login</h1>
+          <h1 className="text-5xl font-extrabold">Signup</h1>
           <p className="text-muted-foreground text-lg text-balance">
-            Step back into your Rippletide workspace
+            Create an account to get started with Rippletide
           </p>
         </div>
 
         <div className="grid gap-6">
+          <FormField
+            control={form.control}
+            name="full_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="John Doe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"
@@ -93,15 +119,7 @@ export function LoginForm({ className, onLogin }: LoginFormProps) {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  Password
-                  <a
-                    href="#"
-                    className="ml-auto text-sm leading-none underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </FormLabel>
+                <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input type="password" {...field} />
                 </FormControl>
@@ -111,7 +129,7 @@ export function LoginForm({ className, onLogin }: LoginFormProps) {
           />
 
           <Button type="submit" className="w-full">
-            Login
+            Signup
           </Button>
 
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
@@ -135,9 +153,12 @@ export function LoginForm({ className, onLogin }: LoginFormProps) {
           </Button>
         </div>
         <div className="text-center text-sm">
-          Don't have an account?{" "}
-          <NavLink to="/signup" className="underline underline-offset-4">
-            Sign up
+          Already have an account?{" "}
+          <NavLink
+            to="/login"
+            className="text-primary text-sm underline underline-offset-4"
+          >
+            Login
           </NavLink>
         </div>
       </form>

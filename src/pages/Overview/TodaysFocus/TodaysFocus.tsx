@@ -43,7 +43,7 @@ export function TodaysFocus() {
   if (isLoading) {
     return (
       <PageLoader
-        title="Loading Today's Focus"
+        title="Loading data"
         description="Please wait while we load your tasks for today"
       />
     );

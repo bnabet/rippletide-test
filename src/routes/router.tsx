@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import { LoginPage } from "@/pages/Login/LoginPage";
+import { Login } from "@/pages/Login/Login";
+import { Signup } from "@/pages/Signup/Signup";
 import { ProtectedLayout } from "@/layouts/ProtectedLayout";
 import { TodaysFocus } from "@/pages/Overview/TodaysFocus/TodaysFocus";
 import { PipelineSummary } from "@/pages/Overview/PipelineSummary/PipelineSummary";
@@ -16,7 +17,11 @@ import { Feedback } from "@/pages/Feedback/Feedback";
 export const router = createBrowserRouter([
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
   {
     path: "/",

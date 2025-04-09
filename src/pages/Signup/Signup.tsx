@@ -1,34 +1,22 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
 
-import { LoginForm } from "./components/LoginForm";
+import { SignupForm } from "./components/SignupForm";
 
 import rippletideLogo from "../../assets/logo.svg";
 
-export function LoginPage() {
+export function Signup() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
 
-  const handleLogin = () => {
-    navigate("/overview/today");
+  const handleSignup = (fullName: string) => {
+    toast.success(`Welcome, ${fullName}!`, {
+      description: "Your account has been created successfully.",
+    });
+
+    setTimeout(() => {
+      navigate("/overview/today");
+    }, 500);
   };
-
-  useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-
-      if (data.session) {
-        navigate("/overview/today");
-      } else {
-        setIsLoading(false);
-      }
-    };
-
-    checkSession();
-  }, [navigate]);
-
-  if (isLoading) return null;
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
@@ -39,8 +27,8 @@ export function LoginPage() {
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-sm">
-            <LoginForm onLogin={handleLogin} />
+          <div className="w-full max-w-md">
+            <SignupForm onSignup={handleSignup} />
           </div>
         </div>
       </div>
